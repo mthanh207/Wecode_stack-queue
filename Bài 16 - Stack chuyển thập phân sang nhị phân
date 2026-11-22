@@ -1,0 +1,58 @@
+
+#include <iostream>
+using namespace std;
+
+// Implement a stack of int yourself (array or linked list, do NOT use std::stack)
+// and use it to write the function below:
+//   void printBinary(int n)
+//     Print the binary representation of n (no leading zeros), followed by a newline.
+//     Hint: push n % 2, then n /= 2; finally pop the bits to print them (LIFO).
+
+// My code
+class stack{
+    private:
+    int a[100];
+    int top;
+    public:
+    stack(){
+        top = -1;
+    }
+    bool empty(){
+        return top == -1;
+    }
+    void push(int x){
+        a[++top] = x;
+    }
+    int pop(){
+        return a[top--];
+    }
+};
+
+void printBinary(int n){
+    stack st;
+    if (n == 0) {
+        cout << 0 << '\n';
+        return;
+    }
+    while (n > 0) {
+        st.push(n % 2);
+        n = n / 2;
+    }
+    while (!st.empty()) {
+        cout << st.pop();
+    }
+    cout << '\n';
+}
+// End
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+
+    printBinary(n);
+
+    return 0;
+}
