@@ -1,0 +1,62 @@
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Implement a stack of characters yourself (array or linked list, do NOT use std::stack)
+// and use it to write the function below:
+//   bool isBalanced(const string& s)
+//     Return true if the bracket string s is valid (every opener is closed by the
+//     matching closer in the correct nesting order), otherwise false.
+
+// My code
+
+class stack {
+    private:
+    char a[1000000];
+    int top;
+    public:
+    stack(){
+        top = -1;
+    }
+    bool empty(){
+        return top == -1;
+    }
+    void push(char c){
+        a[++top] = c;
+    }
+    char pop(){
+        return a[top--];
+    }
+};
+
+bool isBalanced(string s){
+    stack st;
+    for(char c:s){
+        if(c == '(' || c == '[' || c == '{'){
+            st.push(c);
+        }else{
+        if(st.empty()){
+            return false;
+        }
+        char top = st.pop();
+        if(c == ')' && top != '(') return false;
+        if(c == ']' && top != '[') return false;
+        if(c == '}' && top != '{') return false;
+        }
+    }
+    return st.empty();
+}
+
+// End
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s;
+    cin >> s;
+
+    cout << (isBalanced(s) ? "YES" : "NO") << '\n';
+
+    return 0;
+}
